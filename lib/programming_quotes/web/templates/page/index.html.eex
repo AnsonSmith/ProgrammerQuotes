@@ -1,0 +1,5 @@
+<div class="jumbotron">
+  <h3 id="quote-line"><%= @pquote %></h3>
+  <h5 id="quote-author">-<%= @author %></h5>
+</div>
+<button id="random-quote-btn" type="button" class="btn btn-primary">Random Quote!</button>
