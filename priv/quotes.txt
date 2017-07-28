@@ -3,7 +3,7 @@ Walking on water and developing software from a specification are easy if both a
 "It always takes longer than you expect, even when you take into account Hofstadter's Law."	Douglas Hofstadter
 Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.	Rick Osborne
 "You can have the project: Done On Time, Done On Budget, Done Properly, Pick two."	Unknown
-"Some people, when confronted with a problem, think ""I know, I'll use regular expressions."" Now they have two problems."	Jamie Zawinski
+"Some people, when confronted with a problem, think "I know, I'll use regular expressions." Now they have two problems."	Jamie Zawinski
 "In theory, there is no difference between theory and practice. But, in practice, there is."	Jan L. A. van de Snepscheut
 You can use an eraser on the drafting table or a sledgehammer on the construction site	Frank Lloyd Wright
 "Programming today is a race between software engineers striving to build bigger and better idiot-proof programs, and the Universe trying to produce bigger and better idiots. So far, the Universe is winning."	Rick Cook
@@ -18,10 +18,9 @@ Computer Science is no more about computers than astronomy is about telescopes	E
 "If debugging is the process of removing software bugs, then programming must be the process of putting them in."	Edsger Dijkstra
 There are only two kinds of languages: the ones people complain about and the ones nobody uses	Bjarne Stroustrup
 "The best thing about a boolean is even if you are wrong, you are only off by a bit."	Unknown
-"On two occasions I have been asked, ""Pray, Mr. Babbage, if you put into the machine wrong figures, will the right answers come out?"" In one case a member of the Upper, and in the other a member of the Lower House put this question. I am not able rightly to apprehend the kind of confusion of ideas that could provoke such a question."	Charles Babbage
+"On two occasions I have been asked, "Pray, Mr. Babbage, if you put into the machine wrong figures, will the right answers come out?" In one case a member of the Upper, and in the other a member of the Lower House put this question. I am not able rightly to apprehend the kind of confusion of ideas that could provoke such a question."	Charles Babbage
 I have always wished for my computer to be as easy to use as my telephone; my wish has come true because I can no longer figure out how to use my telephone	Bjarne Stroustrup
 It's all talk until the code runs.	Ward Cunningham
-Unicode support is not a �feature�. It is expected behaviour.	Unknown
 "Commenting your code is like cleaning your bathroom - you never want to do it, but it really does create a more pleasant experience for you and your guests."	Ryan Campbell
 "The fool wonders, the wise man asks."	Benjamin Disraeli
 Programming is like sex: one mistake and you have to support it for the rest of your life.	Michael Sinz
@@ -37,4 +36,4 @@ All problems in computer science can be solved by another level of indirection..
 What's the simplest thing that could possibly work?	Ward Cunningham
 There are two major products that come out of Berkeley: LSD and UNIX. We don't believe this to be a coincidence.	Jeremy S. Anderson
 "When all you have is a hammer, everything starts to look like a nail"	Abraham Maslow
-"On the seventh day, God said, ""Ship it! We'll release patches later."""	Josh Flachsbart
+"On the seventh day, God said, "Ship it! We'll release patches later.""	Josh Flachsbart
