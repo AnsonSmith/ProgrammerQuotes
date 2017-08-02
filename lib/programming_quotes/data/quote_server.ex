@@ -9,6 +9,10 @@ defmodule ProgrammingQuotes.Data.QuoteServer do
     GenServer.call(__MODULE__, :random_quote)
   end
 
+  def all_quotes() do
+    GenServer.call(__MODULE__, :all_quotes)
+  end
+
   def init([]) do
     Process.send_after(self(), :load_quotes, 0)
     {:ok, []}
@@ -16,6 +20,10 @@ defmodule ProgrammingQuotes.Data.QuoteServer do
 
   def handle_call(:random_quote, _from, quotes) do
     {:reply, {:ok, Enum.random(quotes)}, quotes}
+  end
+
+ def handle_call(:all_quotes, _from, quotes) do
+    {:reply, {:ok, quotes}, quotes}
   end
 
   def handle_info(:load_quotes, _state) do
