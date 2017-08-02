@@ -47,3 +47,12 @@ Measuring programming progress by lines of code is like measuring aircraft build
 I don't care if it works on your machine! We are not shipping your machine!	Vidiu Platon
 Perl is The only language that looks the same before and after RSA encryption.	Keith Bostic
 In theory, theory and practice are the same. In practice, they’re not.	Yogi Berra
+When in doubt, use brute force.	Ken Thompson
+Deleted code is debugged code.	Jeff Sickel
+The most effective debugging tool is still careful thought, coupled with judiciously placed print statements.	Brian W. Kernighan
+XML is like violence: if it doesn’t solve your problem, you aren’t using enough of it.	Unknown
+Simplicity is prerequisite for reliability.	Edsger W. Dijkstra
+Any fool can write code that a computer can understand. Good programmers write code that humans can understand.	Martin Fowler
+Beware of bugs in the above code; I have only proved it correct, not tried it.	Donald Knuth
+Before software can be reusable it first has to be usable.	Ralph Johnson
+Computers are good at following instructions, but not at reading your mind.	Donald Knuth
