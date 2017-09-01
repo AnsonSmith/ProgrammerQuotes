@@ -1,8 +1,10 @@
 version: 2
 jobs:
    build:
+     working_directory: ~/programmer-quotes
      docker:
        - image: circleci/elixir:1.4.2
      steps:
        - checkout
-       - run: echo "hello world"
+       - run: mix deps.get
+       - run: mix test
