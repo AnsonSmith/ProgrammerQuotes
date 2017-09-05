@@ -18,3 +18,6 @@ jobs:
        - run:
             name: Build Release
             command: MIX_ENV=prod mix release --env=prod
+       - store_artifacts:
+          path: ~/tmp/programming_quotes/_build/prod/rel/programming_quotes/releases/0.0.1/programming_quotes.tar.gz
+          destination: programming_quotes.tar.gz
