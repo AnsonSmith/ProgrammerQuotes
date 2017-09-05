@@ -23,7 +23,7 @@ jobs:
             command: pwd
        - run:
            name: list dir
-           comand: ls -ltr
+           command: ls -ltr
 
        - store_artifacts:
           path: ~/tmp/programming_quotes/_build/prod/rel/programming_quotes/releases/0.0.1/programming_quotes.tar.gz
