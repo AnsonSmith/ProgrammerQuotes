@@ -1,12 +1,20 @@
 version: 2
 jobs:
    build:
-     working_directory: ~/programmer-quotes
+     working_directory: ~/tmp
      docker:
        - image: circleci/elixir:1.4.2
      steps:
        - checkout
        - run: mix local.hex --force
        - run: mix local.rebar --force
-       - run: mix deps.get
-       - run: mix test
+
+       - run:
+           name: Restore Dependencies
+           command:  mix deps.get
+       - run:
+           name: Running Tests
+           command: mix test
+       - run:
+            name: Build Release
+            command: MIX_ENV=prod mix release --env=prod
