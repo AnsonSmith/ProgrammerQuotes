@@ -16,6 +16,12 @@ jobs:
        - run:
            name: Compile
            command: mix compile
+       - run:
+          name: Debug Workspace
+          command: |
+            pwd
+            ls -lta /home/circleci
+            ls -lha /home/circleci/tmp
        - persist_to_workspace:
           # Must be an absolute path, or relative path from working_directory
           root: /home/circleci
@@ -28,10 +34,13 @@ jobs:
        - image: circleci/elixir:1.4.2
      steps:
        - attach_workspace:
-          at: /home/circleci
-       - run:
-           name: Debug Workspace
-           command: ls -lta
+          at: /home/circleci/
+        - run:
+          name: Debug Workspace
+          command: |
+            pwd
+            ls -lta /home/circleci
+            ls -lha /home/circleci/tmp
        - run:
            name: Running Tests
            command: mix test
