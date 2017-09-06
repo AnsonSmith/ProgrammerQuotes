@@ -20,7 +20,7 @@ jobs:
      docker:
        - image: circleci/elixir:1.4.2
      steps:
-      - run:
+       - run:
            name: Running Tests
            command: mix test
        - run:
