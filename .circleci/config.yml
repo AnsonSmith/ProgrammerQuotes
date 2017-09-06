@@ -41,7 +41,7 @@ jobs:
             pwd
             ls -lta /home/circleci
             ls -lha /home/circleci/tmp
-       working_directory: /home/circleci/tmp
+       - working_directory: /home/circleci/tmp
        - run:
            name: Running Tests
            command: mix test
