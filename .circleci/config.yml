@@ -16,10 +16,6 @@ jobs:
        - run:
            name: Compile
            command: mix compile
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - tmp
 
 
    test:
