@@ -9,6 +9,11 @@ jobs:
        - run: mix local.hex --force
        - run: mix local.rebar --force
 
+   get-deps:
+     working_directory: ~/tmp
+     docker:
+       - image: circleci/elixir:1.4.2
+     steps:
        - run:
            name: Restore Dependencies
            command:  mix deps.get
@@ -33,3 +38,4 @@ workflows:
   build_and_test:
     jobs:
       - build
+      - get-deps
