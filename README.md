@@ -1,5 +1,7 @@
 # ProgrammingQuotes
 
+[![CircleCI](https://circleci.com/gh/AnsonSmith/ProgrammerQuotes.svg?style=svg)](https://circleci.com/gh/AnsonSmith/ProgrammerQuotes)
+
 hosted @ https://secret-refuge-35177.herokuapp.com/
 
 To start your Phoenix server:
