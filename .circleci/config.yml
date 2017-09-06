@@ -1,6 +1,6 @@
 version: 2
 jobs:
-   get-src:
+   build:
      working_directory: ~/tmp
      docker:
        - image: circleci/elixir:1.4.2
@@ -8,16 +8,19 @@ jobs:
        - checkout
        - run: mix local.hex --force
        - run: mix local.rebar --force
-
-   get-deps:
-     working_directory: ~/tmp
-     docker:
-       - image: circleci/elixir:1.4.2
-     steps:
        - run:
            name: Restore Dependencies
            command:  mix deps.get
        - run:
+           name: Compile
+           command: mix compile
+
+   test:
+     working_directory: ~/tmp
+     docker:
+       - image: circleci/elixir:1.4.2
+     steps:
+      - run:
            name: Running Tests
            command: mix test
        - run:
@@ -37,6 +40,6 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - get-src
-      - get-deps
-          requires: get-src
+      - build
+      - test
+          requires: build
