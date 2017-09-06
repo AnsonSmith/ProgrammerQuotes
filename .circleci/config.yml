@@ -37,7 +37,10 @@ jobs:
           at: /home/circleci/
        - run:
            name: Debug Workspace
-           command: ls -lta
+           command: |
+            pwd
+            ls -lta /home/circleci
+            ls -lha /home/circleci/tmp
        - run:
            name: Running Tests
            command: mix test
