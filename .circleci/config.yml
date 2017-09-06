@@ -1,7 +1,7 @@
 version: 2
 jobs:
    build:
-     working_directory: ~/tmp
+     working_directory: /home/circleci/tmp
      docker:
        - image: circleci/elixir:1.4.2
          environment:
@@ -16,14 +16,19 @@ jobs:
        - run:
            name: Compile
            command: mix compile
-
+       - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory
+          root: /home/circleci
+          # Must be relative path from root
+          paths:
+            - tmp
 
    test:
      docker:
        - image: circleci/elixir:1.4.2
      steps:
        - attach_workspace:
-          at: ~/
+          at: /home/circleci
        - run:
            name: Debug Workspace
            command: ls -lta
