@@ -4,6 +4,8 @@ jobs:
      working_directory: ~/tmp
      docker:
        - image: circleci/elixir:1.4.2
+         environment:
+           MIX_ENV: test
      steps:
        - checkout
        - run: mix local.hex --force
@@ -14,12 +16,21 @@ jobs:
        - run:
            name: Compile
            command: mix compile
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - tmp
+
 
    test:
-     working_directory: ~/tmp
      docker:
        - image: circleci/elixir:1.4.2
      steps:
+       - attach_workspace:
+          at: ~/
+       - run:
+           name: Debug Workspace
+           command: ls -lta
        - run:
            name: Running Tests
            command: mix test
