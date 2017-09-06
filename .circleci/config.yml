@@ -30,17 +30,19 @@ jobs:
             - tmp
 
    test:
+     working_directory: /home/circleci/tmp
      docker:
        - image: circleci/elixir:1.4.2
-     working_directory: /home/circleci/tmp
      steps:
        - attach_workspace:
           at: /home/circleci/
+       - run: mix local.hex --force
+       - run: mix local.rebar --force
        - run:
            name: Debug Workspace
            command: |
             pwd
-            ls -lta /home/circleci
+            ls -ltr
             ls -lha /home/circleci/tmp
        - run:
            name: Running Tests
