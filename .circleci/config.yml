@@ -55,7 +55,7 @@ jobs:
             - deps-{{ checksum "mix.lock" }}
       - run:
           name: Compile Code
-          command: MIX_ENV=test mix compile
+          command: mix compile
       - save_cache:
           key: build-{{ checksum ".circle-sha" }}
           paths:
@@ -95,4 +95,4 @@ workflows:
             - get_dependencies
       - run_tests:
           requires:
-            - compile_code
+            - get_dependencies
