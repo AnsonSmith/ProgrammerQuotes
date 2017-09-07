@@ -49,21 +49,39 @@ jobs:
        - run:
            name: Generate Coverage
            command: mix coveralls.html
-       - run:
+      - store_artifacts:
+            path: ~/tmp/cover/excoveralls.html
+            destination: coverage.html
+
+  release:
+    working_directory: /home/circleci/tmp
+     docker:
+       - image: circleci/elixir:1.4.2
+     steps:
+       - attach_workspace:
+          at: /home/circleci/
+        - run:
             name: Build Release
             command: MIX_ENV=prod mix release --env=prod
        - store_artifacts:
             path: ~/tmp/_build/prod/rel/programming_quotes/releases/0.0.1/programming_quotes.tar.gz
             destination: programming_quotes.tar.gz
-       - store_artifacts:
-            path: ~/tmp/cover/excoveralls.html
-            destination: coverage.html
+
 
 workflows:
   version: 2
-  build_and_test:
+  build_test:
     jobs:
       - build
       - test:
           requires:
             - build
+  build_test_release:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - release:
+          requires:
+            - test
