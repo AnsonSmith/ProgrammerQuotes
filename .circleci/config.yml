@@ -1,17 +1,42 @@
 version: 2
 jobs:
    build:
-     working_directory: ~/tmp
+     working_directory: /home/circleci/tmp
      docker:
        - image: circleci/elixir:1.4.2
+         environment:
+           MIX_ENV: test
      steps:
        - checkout
        - run: mix local.hex --force
        - run: mix local.rebar --force
-
        - run:
            name: Restore Dependencies
            command:  mix deps.get
+       - run:
+           name: Compile
+           command: mix compile
+       - run:
+          name: Debug Workspace
+          command: |
+            pwd
+            ls -lta /home/circleci
+            ls -lha /home/circleci/tmp
+       - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory
+          root: /home/circleci
+          # Must be relative path from root
+          paths:
+            - tmp
+            - .mix
+
+   test:
+     working_directory: /home/circleci/tmp
+     docker:
+       - image: circleci/elixir:1.4.2
+     steps:
+       - attach_workspace:
+          at: /home/circleci/
        - run:
            name: Running Tests
            command: mix test
@@ -27,3 +52,34 @@ jobs:
        - store_artifacts:
             path: ~/tmp/cover/excoveralls.html
             destination: coverage.html
+
+   packge:
+     working_directory: /home/circleci/tmp
+     docker:
+       - image: circleci/elixir:1.4.2
+     steps:
+       - attach_workspace:
+          at: /home/circleci/
+       - run:
+            name: Build Release
+            command: MIX_ENV=prod mix release --env=prod
+       - store_artifacts:
+            path: ~/tmp/_build/prod/rel/programming_quotes/releases/0.0.1/programming_quotes.tar.gz
+            destination: programming_quotes.tar.gz
+
+workflows:
+  version: 2
+  build_test_package:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - package:
+          requires:
+            -test
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
