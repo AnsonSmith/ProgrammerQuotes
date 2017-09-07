@@ -46,5 +46,5 @@ workflows:
     jobs:
       - checkout_code
       - get_dependencies:
-        requires:
-          - checkout_code
+          requires:
+            - checkout_code
