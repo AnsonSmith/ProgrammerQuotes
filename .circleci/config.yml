@@ -73,8 +73,8 @@ workflows:
     jobs:
       - build
       - test:
-          requires:
-            - build
+        requires:
+          - build
       - package:
-          requires:
-            -test
+        requires:
+          -test
