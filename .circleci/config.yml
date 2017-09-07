@@ -154,7 +154,7 @@ jobs:
       - restore_cache:
           keys:
             - deps-{{ checksum "mix.lock" }}
-     - run:
+      - run:
           name: Build Release Package
           command: MIX_ENV=prod mix release --env=prod
       - run:
