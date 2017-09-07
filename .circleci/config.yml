@@ -71,7 +71,7 @@ jobs:
       - restore_cache:
           keys:
             - code-{{ checksum ".circle-sha" }}
-       - restore_cache:
+      - restore_cache:
           keys:
             - deps-{{ checksum "mix.lock" }}
       - restore_cache:
