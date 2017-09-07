@@ -56,10 +56,11 @@ jobs:
       - run:
           name: Compile Code
           command: MIX_ENV=prod mix compile
-      - save_cache:
+       - save_cache:
           key: build-{{ checksum ".circle-sha" }}
           paths:
             - ~/tmp/_build
+
   run_tests:
     docker:
       - image: circleci/elixir:1.4.2
@@ -74,9 +75,6 @@ jobs:
       - restore_cache:
           keys:
             - deps-{{ checksum "mix.lock" }}
-      - restore_cache:
-          keys:
-            - build-{{ checksum ".circle.sha" }}
       - run:
           name: Run
           command: mix test
@@ -95,9 +93,6 @@ jobs:
       - restore_cache:
           keys:
             - deps-{{ checksum "mix.lock" }}
-      - restore_cache:
-          keys:
-            - build-{{ checksum ".circle.sha" }}
       - run:
           name: Code Coverage
           command: mix coveralls.html
@@ -111,7 +106,7 @@ jobs:
       - image: circleci/elixir:1.4.2
     working_directory: /home/circleci/tmp
     steps:
-      - run:
+       - run:
           name: save SHA to a file
           command: echo $CIRCLE_SHA1 > .circle-sha
       - restore_cache:
