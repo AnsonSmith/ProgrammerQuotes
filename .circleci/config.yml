@@ -100,7 +100,7 @@ jobs:
             - build-{{ checksum ".circle.sha" }}
       - run:
           name: Code Coverage
-          command: mix coverall.html
+          command: mix coveralls.html
       - store_artifacts:
             path: ~/tmp/cover/excoveralls.html
             destination: code-coverage.html
