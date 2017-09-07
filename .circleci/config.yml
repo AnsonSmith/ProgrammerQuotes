@@ -105,6 +105,35 @@ jobs:
             path: ~/tmp/cover/excoveralls.html
             destination: code-coverage.html
 
+
+  package_release:
+    docker:
+      - image: circleci/elixir:1.4.2
+    working_directory: /home/circleci/tmp
+    steps:
+      - run:
+          name: save SHA to a file
+          command: echo $CIRCLE_SHA1 > .circle-sha
+      - restore_cache:
+          keys:
+            - code-{{ checksum ".circle-sha" }}
+      - restore_cache:
+          keys:
+            - deps-{{ checksum "mix.lock" }}
+      - restore_cache:
+          keys:
+            - build-{{ checksum ".circle.sha" }}
+      - run:
+          name: Build Release Package
+          command: MIX_ENV=prod mix release --env=prod
+      - run:
+          name: Copy Release to Dir
+          command: mkdir ~/tmp/release && mv ~/tmp/_build/rel/programming_quotes/releases/0.0.2/programming_quotes.tar.gz ~/tmp/release/
+      - store_artifacts:
+            path: ~/tmp/release/programming_quotes.tar.gz
+            destination: programming_quotes.tar.gz
+
+
 workflows:
   version: 2
   checkout_get-deps_compile_test:
@@ -122,3 +151,6 @@ workflows:
       - health_metrics:
           requires:
             - get_dependencies
+      - package_release:
+          requires:
+            - compile_code
