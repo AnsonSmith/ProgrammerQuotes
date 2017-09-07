@@ -7,8 +7,14 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Debug Workspace
+          command: pwd && ls -ltr
+      - run:
           name: save SHA to a file
           command: echo $CIRCLE_SHA1 > .circle-sha
+      - run:
+          name: Debug Workspace
+          command: pwd && ls -ltr
       - save_cache:
           key: code-{{ checksum ".circle-sha" }}
           paths:
@@ -20,8 +26,14 @@ jobs:
     working_directory: /home/circleci/tmp
     steps:
       - run:
+          name: Debug Workspace
+          command: pwd && ls -ltr
+      - run:
           name: save SHA to a file
           command: echo $CIRCLE_SHA1 > .circle-sha
+      - run:
+          name: Debug Workspace
+          command: pwd && ls -ltr
       - restore_cache:
           keys:
             - code-{{ checksum ".circle-sha" }}
@@ -56,7 +68,7 @@ jobs:
       - run:
           name: Compile Code
           command: MIX_ENV=prod mix compile
-       - save_cache:
+      - save_cache:
           key: build-{{ checksum ".circle-sha" }}
           paths:
             - ~/tmp/_build
@@ -107,9 +119,15 @@ jobs:
     working_directory: /home/circleci/tmp
     steps:
        - run:
+          name: Debug Workspace
+          command: pwd && ls -ltr
+      - run:
           name: save SHA to a file
           command: echo $CIRCLE_SHA1 > .circle-sha
-      - restore_cache:
+      - run:
+          name: Debug Workspace
+          command: pwd && ls -ltr
+     - restore_cache:
           keys:
             - code-{{ checksum ".circle-sha" }}
       - restore_cache:
