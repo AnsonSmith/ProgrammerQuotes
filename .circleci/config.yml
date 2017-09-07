@@ -1,77 +1,80 @@
 version: 2
 jobs:
-   build:
-     working_directory: /home/circleci/tmp
-     docker:
-       - image: circleci/elixir:1.4.2
-         environment:
-           MIX_ENV: test
-     steps:
-       - checkout
+  checkout_code:
+    docker:
+      - image: circleci/elixir:1.4.2
+    working_directory: /home/circleci/tmp
+    steps:
+      - checkout
+      - run:
+          name: save SHA to a file
+          command: echo $CIRCLE_SHA1 > .circle-sha
+      - save_cache:
+          key: code-{{ checksum ".circle-sha" }}
+          paths:
+            - ~/tmp
+
+
+  get_dependencies:
+    docker:
+      - image: circleci/elixir:1.4.2
+    working_directory: /home/circleci/tmp
+    steps:
+       - run:
+          name: save SHA to a file
+          command: echo $CIRCLE_SHA1 > .circle-sha
+       #restore source code cache
+      - restore_cache:
+          keys:
+            - code-{{ checksum ".circle-sha" }}
+      - restore_cache:
+          keys:
+            - deps-{{ checksum "mix.lock" }}
        - run: mix local.hex --force
        - run: mix local.rebar --force
        - run:
            name: Restore Dependencies
            command:  mix deps.get
-       - run:
-           name: Compile
-           command: mix compile
-       - run:
-          name: Debug Workspace
-          command: |
-            pwd
-            ls -lta /home/circleci
-            ls -lha /home/circleci/tmp
-       - persist_to_workspace:
-          # Must be an absolute path, or relative path from working_directory
-          root: /home/circleci
-          # Must be relative path from root
+       - save_cache:
+          key: deps-{{ checksum "mix.lock" }}
           paths:
-            - tmp
-            - .mix
+            - ~/tmp/deps
+            - ~/.mix
 
-   test:
-     working_directory: /home/circleci/tmp
+   compile_code:
      docker:
-       - image: circleci/elixir:1.4.2
-     steps:
-       - attach_workspace:
-          at: /home/circleci/
+      - image: circleci/elixir:1.4.2
+    working_directory: /home/circleci/tmp
+    steps:
        - run:
-           name: Running Tests
-           command: mix test
-       - run:
-           name: Generate Coverage
-           command: mix coveralls.html
-       - run:
-            name: Build Release
-            command: MIX_ENV=prod mix release --env=prod
-       - store_artifacts:
-            path: ~/tmp/_build/prod/rel/programming_quotes/releases/0.0.1/programming_quotes.tar.gz
-            destination: programming_quotes.tar.gz
-       - store_artifacts:
-            path: ~/tmp/cover/excoveralls.html
-            destination: coverage.html
+          name: save SHA to a file
+          command: echo $CIRCLE_SHA1 > .circle-sha
+       #restore source code cache
+      - restore_cache:
+          keys:
+            - code-{{ checksum ".circle-sha" }}
+      - restore_cache:
+          keys:
+            - deps-{{ checksum "mix.lock" }}
+      - run:
+          name: Running Tests
+          command: MIX_ENV=test mix compile
+       - save_cache:
+          key: build-{{ checksum ".circle-sha" }}
+          paths:
+            - ~/tmp/_build
 
-   packge:
-     working_directory: /home/circleci/tmp
-     docker:
-       - image: circleci/elixir:1.4.2
-     steps:
-       - attach_workspace:
-          at: /home/circleci/
-       - run:
-            name: Build Release
-            command: MIX_ENV=prod mix release --env=prod
-       - store_artifacts:
-            path: ~/tmp/_build/prod/rel/programming_quotes/releases/0.0.1/programming_quotes.tar.gz
-            destination: programming_quotes.tar.gz
+
+
 
 workflows:
   version: 2
-  build_and_test:
+  checkout_get-deps_compile:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
+      - checkout_code
+      - get_dependencies:
+        requires:
+          - checkout_code
+      - compile_code:
+        requires:
+          - get_dependencies
