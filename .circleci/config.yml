@@ -56,7 +56,7 @@ jobs:
       - run:
           name: Running Tests
           command: MIX_ENV=test mix compile
-       - save_cache:
+      - save_cache:
           key: build-{{ checksum ".circle-sha" }}
           paths:
             - ~/tmp/_build
