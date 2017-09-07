@@ -45,3 +45,4 @@ workflows:
   checkout_get-deps_compile:
     jobs:
       - checkout_code
+      - get_dependencies
