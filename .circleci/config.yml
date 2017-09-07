@@ -118,7 +118,7 @@ jobs:
       - image: circleci/elixir:1.4.2
     working_directory: /home/circleci/tmp
     steps:
-       - run:
+      - run:
           name: Debug Workspace
           command: pwd && ls -ltr
       - run:
