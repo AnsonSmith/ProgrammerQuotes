@@ -159,7 +159,7 @@ jobs:
           command: MIX_ENV=prod mix release --env=prod
       - run:
           name: Copy Release to Dir
-          command: mkdir ~/tmp/release && mv ~/tmp/_build/rel/programming_quotes/releases/0.0.2/programming_quotes.tar.gz ~/tmp/release/
+          command: mkdir ~/tmp/release && mv ~/tmp/_build/prod/rel/programming_quotes/releases/0.0.2/programming_quotes.tar.gz ~/tmp/release/
       - store_artifacts:
             path: ~/tmp/release/programming_quotes.tar.gz
             destination: programming_quotes.tar.gz
