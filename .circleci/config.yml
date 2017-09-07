@@ -20,14 +20,14 @@ jobs:
     working_directory: /home/circleci/tmp
     steps:
       - run:
-        name: save SHA to a file
-        command: echo $CIRCLE_SHA1 > .circle-sha
+          name: save SHA to a file
+          command: echo $CIRCLE_SHA1 > .circle-sha
       - restore_cache:
-        keys:
-          - code-{{ checksum ".circle-sha" }}
+          keys:
+            - code-{{ checksum ".circle-sha" }}
       - restore_cache:
-        keys:
-          - deps-{{ checksum "mix.lock" }}
+          keys:
+            - deps-{{ checksum "mix.lock" }}
       - run: mix local.hex --force
       - run: mix local.rebar --force
       - run:
