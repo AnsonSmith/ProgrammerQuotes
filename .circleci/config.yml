@@ -28,6 +28,7 @@ jobs:
           # Must be relative path from root
           paths:
             - tmp
+            - .mix
 
    test:
      working_directory: /home/circleci/tmp
@@ -36,8 +37,6 @@ jobs:
      steps:
        - attach_workspace:
           at: /home/circleci/
-       - run: mix local.hex --force
-       - run: mix local.rebar --force
        - run:
            name: Debug Workspace
            command: |
