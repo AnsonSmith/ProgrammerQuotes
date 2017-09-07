@@ -31,13 +31,13 @@ jobs:
       - run: mix local.hex --force
       - run: mix local.rebar --force
       - run:
-        name: Restore Dependencies
-        command:  mix deps.get
+          name: Restore Dependencies
+          command:  mix deps.get
       - save_cache:
-        key: deps-{{ checksum "mix.lock" }}
-        paths:
-          - ~/tmp/deps
-          - ~/.mix
+          key: deps-{{ checksum "mix.lock" }}
+          paths:
+            - ~/tmp/deps
+            - ~/.mix
 
 
 workflows:
