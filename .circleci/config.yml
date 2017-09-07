@@ -78,8 +78,3 @@ workflows:
       - package:
           requires:
             -test
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              ignore: /.*/
