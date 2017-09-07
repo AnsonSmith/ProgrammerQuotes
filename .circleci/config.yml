@@ -97,7 +97,7 @@ jobs:
             - deps-{{ checksum "mix.lock" }}
       - restore_cache:
           keys:
-            - build-{{ checksum .circle.sha" }}
+            - build-{{ checksum ".circle.sha" }}
       - run:
           name: Code Coverage
           command: mix coverall.html
