@@ -147,14 +147,14 @@ jobs:
           command: pwd && ls -lta
       - restore_cache:
           keys:
+            - build-{{ checksum ".circle.sha" }}
+      - restore_cache:
+          keys:
             - code-{{ checksum ".circle-sha" }}
       - restore_cache:
           keys:
             - deps-{{ checksum "mix.lock" }}
-      - restore_cache:
-          keys:
-            - build-{{ checksum ".circle.sha" }}
-      - run:
+     - run:
           name: Build Release Package
           command: MIX_ENV=prod mix release --env=prod
       - run:
