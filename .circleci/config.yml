@@ -54,16 +54,37 @@ jobs:
           keys:
             - deps-{{ checksum "mix.lock" }}
       - run:
-          name: Running Tests
+          name: Compile Code
           command: MIX_ENV=test mix compile
       - save_cache:
           key: build-{{ checksum ".circle-sha" }}
           paths:
             - ~/tmp/_build
+  run_tests:
+    docker:
+      - image: circleci/elixir:1.4.2
+    working_directory: /home/circleci/tmp
+    steps:
+      - run:
+          name: save SHA to a file
+          command: echo $CIRCLE_SHA1 > .circle-sha
+      - restore_cache:
+          keys:
+            - code-{{ checksum ".circle-sha" }}
+       - restore_cache:
+          keys:
+            - deps-{{ checksum "mix.lock" }}
+      - restore_cache:
+          keys:
+            - build-{{ checksum .circle.sha" }}
+      - run:
+          name: Run
+          command: mix test
+
 
 workflows:
   version: 2
-  checkout_get-deps_compile:
+  checkout_get-deps_compile_test:
     jobs:
       - checkout_code
       - get_dependencies:
@@ -72,3 +93,6 @@ workflows:
       - compile_code:
           requires:
             - get_dependencies
+      - run_tests:
+          requires:
+            - compile_code
