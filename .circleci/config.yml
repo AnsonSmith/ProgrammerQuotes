@@ -186,11 +186,10 @@ workflows:
               only: /.*/
             branches:
               only: /.*/
-
       - compile_code:
           requires:
             - get_dependencies
-           filters:
+          filters:
             tags:
               only: /.*/
             branches:
@@ -198,7 +197,7 @@ workflows:
       - run_tests:
           requires:
             - get_dependencies
-           filters:
+          filters:
             tags:
               ignore: /.*/
             branches:
@@ -206,7 +205,7 @@ workflows:
       - health_metrics:
           requires:
             - get_dependencies
-           filters:
+          filters:
             tags:
               ignore: /.*/
             branches:
