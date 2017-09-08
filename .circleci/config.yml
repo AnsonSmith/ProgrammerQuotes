@@ -188,3 +188,8 @@ workflows:
       - package_release:
           requires:
             - compile_code
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
