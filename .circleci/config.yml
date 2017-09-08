@@ -172,19 +172,44 @@ workflows:
   version: 2
   checkout_get-deps_compile_test:
     jobs:
-      - checkout_code
+      - checkout_code:
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only: /.*/
       - get_dependencies:
           requires:
             - checkout_code
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only: /.*/
       - compile_code:
           requires:
             - get_dependencies
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              only: /.*/
       - run_tests:
           requires:
             - get_dependencies
+          filters:
+            tags:
+              ignore: /.*/
+            branches:
+              only: /.*/
       - health_metrics:
           requires:
             - get_dependencies
+          filters:
+            tags:
+              ignore: /.*/
+            branches:
+              only: /.*/
       - package_release:
           requires:
             - compile_code
